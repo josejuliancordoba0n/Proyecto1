@@ -7,7 +7,7 @@ using namespace std;
 MenuPrincipal::MenuPrincipal() {
 }
 
-// Menú principal
+///////////////////////////// Menú principal /////////////////////////////////////////////////////
 void MenuPrincipal::iniciar() {
     int opcion;
 
@@ -74,7 +74,7 @@ void MenuPrincipal::iniciar() {
 }
 
 
-//Metodos Propios
+///////////////////////////////////////Metodos Gestion Canchas///////////////////////////////////
 void MenuPrincipal::menuCanchas() {
     int opcion;
 
@@ -570,6 +570,7 @@ void MenuPrincipal::reporteOcupacion() {
 
     system("pause");
 }
+///////////////////////////////Metodo Gestion Cliente...///////////////////////////////////////// 
 
 // Destructor
 MenuPrincipal::~MenuPrincipal() {
