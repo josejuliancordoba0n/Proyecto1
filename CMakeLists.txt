@@ -3,11 +3,13 @@ project(Proyecto1)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories("Proyecto1/Clases individuales")
+include_directories("Proyecto1/Archivos de Cabecera")
 
 add_executable(Proyecto1
-        "Proyecto1/Clases individuales/Cliente.cpp"
-        "Proyecto1/Clases individuales/Cliente.h"
         Proyecto1/main.cpp
-        "Proyecto1/Clases Listas/LlstaCliente.cpp"
-        "Proyecto1/Clases Listas/LlstaCliente.h")
+        "Proyecto1/Archivos de implementación/Cancha.cpp"
+        "Proyecto1/Archivos de Cabecera/Cancha.h"
+        "Proyecto1/Archivos de implementación/ListaCanchas.cpp"
+        "Proyecto1/Archivos de Cabecera/ListaCanchas.h"
+        "Proyecto1/Archivos de implementación/MenuPrincipal.cpp"
+        "Proyecto1/Archivos de Cabecera/MenuPrincipal.h")
