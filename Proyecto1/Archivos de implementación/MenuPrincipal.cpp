@@ -19,8 +19,23 @@ void MenuPrincipal::iniciar() {
             "\n4. Gestion de listado de espera"
             "\n5. Reportes y estadisticas"
             "\n6. Salir" <<endl <<endl;
-        cout << "Seleccione una opcion: ";
-        cin >> opcion;
+
+        do {
+            cout << "Seleccione una opcion: ";
+            cin >> opcion;
+
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(1000, '\n');
+
+                cout << "\nError. Debe ingresar un valor numerico!" <<endl;
+                opcion = -1;
+            }
+            else if (opcion < 1 || opcion > 6) {
+                cout << "\nError. Debe seleccionar una opcion entre 1 y 6!" <<endl;
+            }
+
+        } while (opcion < 1 || opcion > 6);
 
         switch(opcion) {
             case 1:
@@ -74,9 +89,24 @@ void MenuPrincipal::menuCanchas() {
             << "4. Modificar precio" << endl
             << "5. Gestion de mantenimiento" << endl
             << "6. Reporte de ocupacion" << endl
-            << "7. Volver al menu principal" << endl << endl
-        << "Seleccione una opcion: ";
-        cin >> opcion;
+            << "7. Volver al menu principal" << endl <<endl;
+
+        do {
+            cout << "Seleccione una opcion: ";
+            cin >> opcion;
+
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(1000, '\n');
+
+                cout << "\nError. Debe ingresar un valor numerico!" <<endl;
+                opcion = -1;
+            }
+            else if (opcion < 1 || opcion > 7) {
+                cout << "\nError. Debe seleccionar una opcion entre 1 y 7!" <<endl;
+            }
+
+        } while (opcion < 1 || opcion > 7);
 
         switch(opcion) {
 
@@ -131,9 +161,22 @@ void MenuPrincipal::registrarCancha() {
         return;
     }
 
-    cout <<"Digite el codigo de la cancha: ";
-    cin >> idCancha;
+    do {
+        cout << "Digite el codigo de la cancha: ";
+        cin >> idCancha;
 
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Error. Debe ingresar un codigo numerico!" <<endl;
+            idCancha = -1;
+        }
+        else if (idCancha <= 0) {
+            cout << "Error. El codigo debe ser mayor que 0!" <<endl;
+        }
+
+    } while (idCancha <= 0);
 
     if(coleccionCanchas.buscarCancha(idCancha) != nullptr) {
         cout << "Error. Ya existe una cancha con ese codigo!" <<endl;
@@ -142,7 +185,7 @@ void MenuPrincipal::registrarCancha() {
         return;
     }
 
-    cin.ignore();
+    cin.ignore(1000, '\n');
 
     do {
 
@@ -229,8 +272,22 @@ void MenuPrincipal::buscarCancha() {
         return;
     }
 
-    cout << "\nDigite el codigo de la cancha que desea buscar: ";
-    cin >> idCancha;
+    do {
+        cout << "\nDigite el codigo de la cancha que desea buscar: ";
+        cin >> idCancha;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Error. Debe ingresar un codigo numerico!" <<endl;
+            idCancha = -1;
+        }
+        else if (idCancha <= 0) {
+            cout << "Error. El codigo debe ser mayor que 0!" <<endl;
+        }
+
+    } while (idCancha <= 0);
 
     Cancha* cancha = coleccionCanchas.buscarCancha(idCancha);
 
@@ -262,8 +319,22 @@ void MenuPrincipal::modificarPrecio() {
         return;
     }
 
-    cout << "\nDigite el codigo de la cancha que desea modificar: ";
-    cin >> idCancha;
+    do {
+        cout << "\nDigite el codigo de la cancha que desea modificar: ";
+        cin >> idCancha;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Error. Debe ingresar un codigo numerico!" <<endl;
+            idCancha = -1;
+        }
+        else if (idCancha <= 0) {
+            cout << "Error. El codigo debe ser mayor que 0!" <<endl;
+        }
+
+    } while (idCancha <= 0);
 
     Cancha* cancha = coleccionCanchas.buscarCancha(idCancha);
 
@@ -277,11 +348,18 @@ void MenuPrincipal::modificarPrecio() {
         cout << "Digite el nuevo precio por hora: ";
         cin >> nuevoPrecio;
 
-        if(nuevoPrecio <= 0) {
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Error. Debe ingresar un valor numerico!" <<endl;
+            nuevoPrecio = -1;
+        }
+        else if (nuevoPrecio <= 0) {
             cout << "Error. El precio debe ser mayor que 0!" <<endl;
         }
 
-    } while(nuevoPrecio <= 0);
+    } while (nuevoPrecio <= 0);
 
     if(coleccionCanchas.modificarPrecio(idCancha, nuevoPrecio)) {
         cout << "\nPrecio modificado correctamente!" <<endl;
@@ -311,8 +389,22 @@ void MenuPrincipal::mantenimientoCancha() {
         return;
     }
 
-    cout << "\nDigite el codigo de la cancha: ";
-    cin >> idCancha;
+    do {
+        cout << "\nDigite el codigo de la cancha: ";
+        cin >> idCancha;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Error. Debe ingresar un codigo numerico!" <<endl;
+            idCancha = -1;
+        }
+        else if (idCancha <= 0) {
+            cout << "Error. El codigo debe ser mayor que 0!" <<endl;
+        }
+
+    } while (idCancha <= 0);
 
     Cancha* cancha = coleccionCanchas.buscarCancha(idCancha);
 
@@ -337,21 +429,42 @@ void MenuPrincipal::mantenimientoCancha() {
             <<endl;
     }
 
-
     do {
         cout << "\nDigite la posicion de la franja que desea modificar [0-11]: ";
         cin >> franja;
 
-        if(franja < 0 || franja > 11) {
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Error. Debe ingresar un valor numerico!" <<endl;
+            franja = -1;
+        }
+        else if (franja < 0 || franja > 11) {
             cout << "Error. La posicion de la franja debe estar entre 0 y 11!" <<endl;
         }
 
-    } while(franja < 0 || franja > 11);
+    } while (franja < 0 || franja > 11);
 
-    cout << "\n1. Colocar mantenimiento" <<endl;
-    cout << "2. Retirar mantenimiento" <<endl;
-    cout << "Seleccione una opcion: ";
-    cin >> opcion;
+    do {
+        cout << "\n1. Colocar mantenimiento" <<endl;
+        cout << "2. Retirar mantenimiento" <<endl;
+        cout << "Seleccione una opcion: ";
+
+        cin >> opcion;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+
+            cout << "Error. Debe ingresar un valor numerico!" <<endl;
+            opcion = -1;
+        }
+        else if (opcion != 1 && opcion != 2) {
+            cout << "Error. Debe seleccionar 1 o 2!" <<endl;
+        }
+
+    } while (opcion != 1 && opcion != 2);
 
     switch(opcion) {
 
