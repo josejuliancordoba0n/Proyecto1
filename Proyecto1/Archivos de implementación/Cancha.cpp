@@ -90,6 +90,39 @@ void Cancha::setPrecioHora(float precioHora) {
         this->precioHora = precioHora;
 }
 
+string Cancha::toStringCancha() {
+    stringstream ss;
+
+    ss << "=====================\n";
+    ss << "DATOS DE LA CANCHA\n";
+    ss << "=====================\n" <<endl;
+
+    ss << "Codigo de cancha: [" << idCancha
+        << "]\nTipo de deporte para el cual se usa: ["
+        << tipoDeporte
+        << "]\nPrecio de alquiler por hora: [CRC"
+        << precioHora
+        << "]\nDisponibilidad de cancha segun las horas:\n"
+        << "(O -> Ocupado, L -> Libre, M -> En Mantenimiento)"
+        <<endl;
+
+    for (int i = 0; i < 12; i++) {
+        int horaInicio = 8 + i;
+        int horaFin = 9 + i;
+
+        ss << "["
+            << horaInicio
+            << ":00 - "
+            << horaFin
+            << ":00] --> "
+            << dispHora[i]
+            <<endl;
+    }
+
+    return ss.str();
+}
+
+
 Cancha::~Cancha() {
 
 }

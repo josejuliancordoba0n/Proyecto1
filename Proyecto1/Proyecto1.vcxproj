@@ -139,7 +139,15 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Archivos de implementación\Cancha.cpp" />
+    <ClCompile Include="Archivos de implementación\ListaCanchas.cpp" />
+    <ClCompile Include="Archivos de implementación\MenuPrincipal.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Archivos de Cabecera\Cancha.h" />
+    <ClInclude Include="Archivos de Cabecera\ListaCanchas.h" />
+    <ClInclude Include="Archivos de Cabecera\MenuPrincipal.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

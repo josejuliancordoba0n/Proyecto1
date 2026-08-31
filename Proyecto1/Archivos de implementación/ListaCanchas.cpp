@@ -74,11 +74,11 @@ Cancha* ListaCanchas::getCancha(int posicion) {
 string ListaCanchas::toStringListaCanchas() {
     stringstream ss;
 
-    ss << "============= LISTADO DE CANCHAS =============" << endl;
+    ss << "============= LISTADO DE CANCHAS =============" <<endl;
 
     for (int i = 0; i < cant; i++) {
         if(arrayCancha[i] != nullptr)
-            ss << arrayCancha[i]->toStringCancha() << endl;
+            ss << arrayCancha[i]->toStringCancha() <<endl;
     }
     return ss.str();
 }
