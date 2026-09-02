@@ -1,21 +1,22 @@
-#include<sstream>
+#ifndef PROYECTO1_LISTACLIENTE_H
+#define PROYECTO1_LISTACLIENTE_H
+#include "Cliente.h"
+#include <string>
+using namespace std;
+
 class ListaCliente {
 private:
-	int cant;
-	int tam;
-	Cliente* arrayCliente[100];
+    int cant;
+    int tam;
+    Cliente* arrayCliente[100];
 
 public:
-	//Constructor
-	ListaCliente(int tam=100);
-	//Metodos Propios
-	bool agregarCliente(Cliente* aPtr);
-	bool buscarCliente(int idCliente);
-		Cliente* getCliente(int posicion);
-	int getCantidad();
-	//To String
-	string toStringListaClientes();
-	//Destructor
-	~ListaCliente();
-
+    ListaCliente();
+    bool agregarCliente(Cliente* cPtr);
+    Cliente* buscarCliente(int idCliente);
+    Cliente* getCliente(int posicion);
+    int getCantidad();
+    string toStringListaClientes();
+    ~ListaCliente();
 };
+#endif //PROYECTO1_LISTACLIENTE_H

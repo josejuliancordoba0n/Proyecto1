@@ -1,21 +1,26 @@
+#ifndef PROYECTO1_CLIENTE_H
+#define PROYECTO1_CLIENTE_H
 #include <string>
 using namespace std;
 
 class Cliente {
-private: 
-	int idCliente; 
-	string nombreCliente; 
-	string numTel;
-public: 
-	//Constructores
-	Cliente();
-	Cliente(int, string, string);
-	string toStringCliente();
-	int getidCliente() { return idCliente; }
-	string  getnombreCliente() { return nombreCliente; }
-	string numTelCliente() { return numTel; }
-	void setidCliente(int id) { idCliente = id; }
-	void setnombreCliente(string nombre) { nombreCliente = nombre; }
-	void numTelCliente(string numTel) { numTel = numTel; }
-	~Cliente();
+private:
+    int idCliente;
+    string nombreCliente;
+    string numTel;
+public:
+    Cliente();
+    Cliente(int idCliente, string nombreCliente, string numTel);
+    string toStringCliente();
+
+    int getIdCliente() { return idCliente; }
+    string getNombreCliente() { return nombreCliente; }
+    string getNumTel() { return numTel; }
+
+    void setIdCliente(int id) { idCliente = id; }
+    void setNombreCliente(string nombre) { nombreCliente = nombre; }
+    void setNumTel(string numTelNuevo) { numTel = numTelNuevo; }
+
+    ~Cliente();
 };
+#endif //PROYECTO1_CLIENTE_H
