@@ -216,7 +216,7 @@ void MenuPrincipal::registrarCancha() {
         tipoDeporte != "Tenis");
 
     do {
-        cout << "Digite el precio por hora: ";
+        cout << "Digite el precio por hora (No ingrese espacios): ";
 
         cin >> precioHora;
 
@@ -902,6 +902,13 @@ void MenuPrincipal::registrarEnEspera() {
 
     cout << "===== REGISTRAR CLIENTE EN ESPERA =====" << endl;
 
+
+    if (coleccionClientes.getCantidad() == 0) {
+        cout << "Error. No existen clientes registrados!" << endl;
+        system("pause");
+        return;
+    }
+
     if (coleccionClientes.getCantidad() == 0) {
         cout << "Error. No existen clientes registrados!" << endl;
         system("pause");
@@ -977,6 +984,7 @@ void MenuPrincipal::registrarEnEspera() {
     }
 
     do {
+
         cout << "\nDigite la posicion de la franja [0-11]: ";
         cin >> franja;
 
@@ -1027,6 +1035,12 @@ void MenuPrincipal::cambiarEstadoEspera() {
 
     cout << "===== CAMBIAR ESTADO DE SOLICITUD =====" << endl;
     cout << coleccionEspera.toStringListaEspera() << endl;
+
+    if (coleccionClientes.getCantidad() == 0) {
+        cout << "Error. No existen clientes registrados!" << endl;
+        system("pause");
+        return;
+    }
 
     do {
         cout << "Digite el numero de solicitud: ";

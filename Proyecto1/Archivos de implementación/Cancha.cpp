@@ -100,7 +100,7 @@ string Cancha::toStringCancha() {
     ss << "Codigo de cancha: [" << idCancha
         << "]\nTipo de deporte para el cual se usa: ["
         << tipoDeporte
-        << "]\nPrecio de alquiler por hora: [CRC"
+        << "]\nPrecio de alquiler por hora: [CRC "
         << precioHora
         << "]\nDisponibilidad de cancha segun las horas:\n"
         << "(O -> Ocupado, L -> Libre, M -> En Mantenimiento)"
