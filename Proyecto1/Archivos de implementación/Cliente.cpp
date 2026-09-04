@@ -1,4 +1,4 @@
-#include "Cliente.h"
+#include "../Archivos de Cabecera/Cliente.h"
 #include <sstream>
 
 Cliente::Cliente() {

@@ -1,5 +1,7 @@
 #include "../Archivos de Cabecera/MenuPrincipal.h"
 #include <iostream>
+#include <sstream>
+#include <limits>
 
 using namespace std;
 
@@ -676,25 +678,49 @@ void MenuPrincipal::registrarCliente() {
 
     cin.ignore(1000, '\n');
 
+    bool nombreValido = false;
     do {
-        cout << "Digite el nombre completo del cliente: ";
+        cout << "Digite el nombre completo del cliente  (No ingresar acentos, numeros o simbolos): ";
         getline(cin, nombreCliente);
 
         if (nombreCliente.empty()) {
             cout << "Error. El nombre no puede estar vacio!" << endl;
+            nombreValido = false;
+        }
+        else {
+            nombreValido = true;
+            for (char ch : nombreCliente) {
+                if (!((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == ' ')) {
+                    nombreValido = false;
+                    cout << "Error. El nombre solo puede contener letras y espacios!" << endl;
+                    break;
+                }
+            }
         }
 
-    } while (nombreCliente.empty());
+    } while (!nombreValido);
 
+    bool telefonoValido = false;
     do {
         cout << "Digite el numero de telefono: ";
         getline(cin, numTel);
 
         if (numTel.empty()) {
             cout << "Error. El telefono no puede estar vacio!" << endl;
+            telefonoValido = false;
+        }
+        else {
+            telefonoValido = true;
+            for (char ch : numTel) {
+                if (!(ch >= '0' && ch <= '9')) {
+                    telefonoValido = false;
+                    cout << "Error. El telefono solo puede contener digitos!" << endl;
+                    break;
+                }
+            }
         }
 
-    } while (numTel.empty());
+    } while (!telefonoValido);
 
     Cliente* nuevoCliente = new Cliente(idCliente, nombreCliente, numTel);
     coleccionClientes.agregarCliente(nuevoCliente);

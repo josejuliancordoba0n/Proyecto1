@@ -1,4 +1,4 @@
-#include "ListaRegistroEspera.h"
+#include "../Archivos de Cabecera/ListaRegistroEspera.h"
 #include <sstream>
 
 //Constructor

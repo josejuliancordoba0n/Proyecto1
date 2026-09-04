@@ -1,4 +1,4 @@
-#include "ListaCliente.h"
+#include "../Archivos de Cabecera/ListaCliente.h"
 #include <sstream>
 
 ListaCliente::ListaCliente() {
