@@ -8,12 +8,14 @@
 #include "ListaCanchas.h"
 #include "ListaCliente.h"
 #include "ListaRegistroEspera.h"
+#include "ListaReservas.h" 
 
 class MenuPrincipal {
 private:
     ListaCanchas coleccionCanchas;
     ListaCliente coleccionClientes;
     ListaRegistroEspera coleccionEspera;
+    ListaReservas coleccionReservas;
 
 public:
     //Constructor
@@ -41,6 +43,22 @@ public:
     void registrarEnEspera();
     void mostrarListadoEspera();
     void cambiarEstadoEspera();
+
+    //Metodos Propios (Reservas)
+    void menuReservas();
+    void registrarReserva();
+    void mostrarReservas();
+    void buscarReservaMenu();
+    void mostrarReservasPorCanchaMenu();
+    void cancelarReservaMenu();
+
+    //Metodos Propios (Reportes)
+    void menuReportes();
+    void reporteCanchaMasReservas();
+    void reporteIngresoTotal();
+    void reporteHorasMayorMenor();
+
+
 
     //Destructor
     ~MenuPrincipal();

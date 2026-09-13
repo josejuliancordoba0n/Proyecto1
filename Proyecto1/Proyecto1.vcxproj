@@ -144,8 +144,10 @@
     <ClCompile Include="Archivos de implementación\ListaCanchas.cpp" />
     <ClCompile Include="Archivos de implementación\ListaCliente.cpp" />
     <ClCompile Include="Archivos de implementación\ListaRegistroEspera.cpp" />
+    <ClCompile Include="Archivos de implementación\ListaReservas.cpp" />
     <ClCompile Include="Archivos de implementación\MenuPrincipal.cpp" />
     <ClCompile Include="Archivos de implementación\RegistroEspera.cpp" />
+    <ClCompile Include="Archivos de implementación\Reserva.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,8 +156,10 @@
     <ClInclude Include="Archivos de Cabecera\ListaCanchas.h" />
     <ClInclude Include="Archivos de Cabecera\ListaCliente.h" />
     <ClInclude Include="Archivos de Cabecera\ListaRegistroEspera.h" />
+    <ClInclude Include="Archivos de Cabecera\ListaReservas.h" />
     <ClInclude Include="Archivos de Cabecera\MenuPrincipal.h" />
     <ClInclude Include="Archivos de Cabecera\RegistroEspera.h" />
+    <ClInclude Include="Archivos de Cabecera\Reserva.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
