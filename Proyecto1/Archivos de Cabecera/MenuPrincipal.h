@@ -54,8 +54,10 @@ public:
 
     //Metodos Propios (Reportes)
     void menuReportes();
+    void reporteClienteMasReservas();
     void reporteCanchaMasReservas();
     void reporteIngresoTotal();
+    void reporteOcupacionPorcentaje();
     void reporteHorasMayorMenor();
 
 

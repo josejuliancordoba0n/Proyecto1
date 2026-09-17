@@ -40,7 +40,7 @@ Cancha* ListaCanchas::buscarCancha(int idCancha) {
      return nullptr;
 }
 
-bool ListaCanchas::modificarPrecio(int idCancha, float nuevoPrecio) {
+bool ListaCanchas::modificarPrecio(int idCancha, int nuevoPrecio) {
     Cancha* cancha = buscarCancha(idCancha);
     if(cancha == nullptr) {
         return false;

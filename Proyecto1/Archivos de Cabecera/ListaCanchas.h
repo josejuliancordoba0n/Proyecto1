@@ -20,7 +20,7 @@ class ListaCanchas {
     //Metodos Propios
     bool agregarCancha(Cancha* aPtr);
     Cancha* buscarCancha(int idCancha);
-    bool modificarPrecio(int idCancha, float nuevoPrecio);
+    bool modificarPrecio(int idCancha, int nuevoPrecio);
 
     //Get Cantidad (Para Reportes)
     Cancha* getCancha(int posicion);

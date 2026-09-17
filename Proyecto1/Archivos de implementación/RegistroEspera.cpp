@@ -34,11 +34,25 @@ string RegistroEspera::toStringRegistroEspera(int idSolicitudEspera) {
     ss << "=====================\n";
     ss << "REGISTRO DE ESPERA\n";
     ss << "=====================\n";
-    ss << "Numero de solicitud: [" << this->idSolicitudEspera << "]" << endl;
-    ss << "Cliente: [" << (cliente != nullptr ? cliente->getNombreCliente() : "N/A") << "]" << endl;
-    ss << "Cancha: [" << (cancha != nullptr ? cancha->getIdCancha() : -1) << "]" << endl;
-    ss << "Franja solicitada: [" << horaInicio << ":00 - " << horaFin << ":00]" << endl;
-    ss << "Estado: [" << estadoTexto << "]" << endl;
+    ss << "Numero de solicitud: [" << this->idSolicitudEspera << "]" <<endl;
+    ss << "Cliente: [" << (cliente != nullptr ? cliente->getNombreCliente() : "N/A") << "]" <<endl;
+    ss << "Cancha: [C-";
+
+    if (cancha != nullptr) {
+        if (cancha->getIdCancha() < 10) {
+            ss << "0";
+        }
+
+        ss << cancha->getIdCancha();
+    }
+    else {
+        ss << "N/A";
+    }
+
+    ss << "]" << endl;
+
+    ss << "Franja solicitada: [" << horaInicio << ":00 - " << horaFin << ":00]" <<endl;
+    ss << "Estado: [" << estadoTexto << "]" <<endl;
 
     return ss.str();
 }

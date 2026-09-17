@@ -10,14 +10,14 @@
 Cancha::Cancha() {
     idCancha = 0;
     tipoDeporte = "INDEFINIDO";
-    precioHora = 0.0;
+    precioHora = 0;
 
     for(int i = 0; i < 12; i++) {
         dispHora[i] = 'L';
     }
 }
 
-Cancha::Cancha(int idCancha,string tipoDeporte,float precioHora,char dispHora[]) {
+Cancha::Cancha(int idCancha,string tipoDeporte,int precioHora,char dispHora[]) {
     this->idCancha = idCancha;
     this->tipoDeporte = tipoDeporte;
     this->precioHora = precioHora;
@@ -71,7 +71,7 @@ string Cancha::getTipoDeporte() {
     return tipoDeporte;
 }
 
-float Cancha::getPrecioHora() {
+int Cancha::getPrecioHora() {
     return precioHora;
 }
 
@@ -85,7 +85,7 @@ void Cancha::setTipoDeporte(string tipoDeporte) {
     this->tipoDeporte = tipoDeporte;
     }
 
-void Cancha::setPrecioHora(float precioHora) {
+void Cancha::setPrecioHora(int precioHora) {
     if(precioHora > 0)
         this->precioHora = precioHora;
 }
@@ -97,14 +97,21 @@ string Cancha::toStringCancha() {
     ss << "DATOS DE LA CANCHA\n";
     ss << "=====================\n" <<endl;
 
-    ss << "Codigo de cancha: [" << idCancha
-        << "]\nTipo de deporte para el cual se usa: ["
+    ss << "Codigo de cancha: [C-";
+
+    if (idCancha < 10) {
+        ss << "0";
+    }
+
+    ss << idCancha;
+
+    ss << "]\nTipo de deporte para el cual se usa: ["
         << tipoDeporte
         << "]\nPrecio de alquiler por hora: [CRC "
         << precioHora
         << "]\nDisponibilidad de cancha segun las horas:\n"
         << "(O -> Ocupado, L -> Libre, M -> En Mantenimiento)"
-        <<endl;
+        << endl;
 
     for (int i = 0; i < 12; i++) {
         int horaInicio = 8 + i;

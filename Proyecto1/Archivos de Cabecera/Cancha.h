@@ -13,12 +13,12 @@ class Cancha {
     int idCancha;
     string tipoDeporte;
     char dispHora[12];
-    float precioHora;
+    int precioHora;
 
     public:
     //Constructores
     Cancha();
-    Cancha(int idCancha, string tipoDeporte, float precioHora, char dispHora[]);
+    Cancha(int idCancha, string tipoDeporte, int precioHora, char dispHora[]);
 
     //Metodos propios
     char consultarFranja(int posicion);
@@ -28,13 +28,13 @@ class Cancha {
     char getdispHora(int posicion);
     int getIdCancha();
     string getTipoDeporte();
-    float getPrecioHora();
+    int getPrecioHora();
 
 
     //Set
     void setIdCancha(int id);
     void setTipoDeporte(string tipoDeporte);
-    void setPrecioHora(float precioHora);
+    void setPrecioHora(int precioHora);
 
     //To String
     string toStringCancha();

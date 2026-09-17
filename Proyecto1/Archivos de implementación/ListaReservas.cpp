@@ -49,16 +49,28 @@ Reserva* ListaReservas::buscarReserva(int numeroReserva) {
 }
 
 bool ListaReservas::cancelarReserva(int numeroReserva) {
-    Reserva* r = buscarReserva(numeroReserva);
-    if (r == nullptr || r->getEstado() != 'A') return false;
 
-    r->setEstado('C');
+    Reserva* r = buscarReserva(numeroReserva);
+
+    if (r == nullptr) {
+        return false;
+    }
+
+    if (r->getEstado() != 'A') {
+        return false;
+    }
+
     Cancha* c = r->getCancha();
+
     int inicio = r->getFranjaInicial();
     int cantidad = r->getCantidadFranjas();
+
     for (int i = inicio; i < inicio + cantidad; i++) {
         c->cambiarEstadoFranja(i, 'L');
     }
+
+    r->setEstado('C');
+
     return true;
 }
 
@@ -123,12 +135,13 @@ string ListaReservas::mostrarReservasPorCancha(int idCancha) {
     return resultado;
 }
 
-
 string ListaReservas::toStringListaReservas() {
     string resultado = "";
+
     for (int i = 0; i < cant; i++) {
         resultado += arrayReserva[i]->toStringReserva() + "\n";
     }
+
     return resultado;
 }
 

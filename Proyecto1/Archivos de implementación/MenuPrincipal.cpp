@@ -1,7 +1,7 @@
 #include "../Archivos de Cabecera/MenuPrincipal.h"
 #include <iostream>
 #include <sstream>
-#include <limits>
+#include <string>
 
 using namespace std;
 
@@ -20,7 +20,7 @@ void MenuPrincipal::iniciar() {
             "\n3. Gestion de reservas"
             "\n4. Gestion de listado de espera"
             "\n5. Reportes y estadisticas"
-            "\n6. Salir" << endl << endl;
+            "\n6. Salir" <<endl <<endl;
 
         do {
             cout << "Seleccione una opcion: ";
@@ -30,11 +30,11 @@ void MenuPrincipal::iniciar() {
                 cin.clear();
                 cin.ignore(1000, '\n');
 
-                cout << "\nError. Debe ingresar un valor numerico!" << endl;
+                cout << "\nError. Debe ingresar un valor numerico!" <<endl;
                 opcion = -1;
             }
             else if (opcion < 1 || opcion > 6) {
-                cout << "\nError. Debe seleccionar una opcion entre 1 y 6!" << endl;
+                cout << "\nError. Debe seleccionar una opcion entre 1 y 6!" <<endl;
             }
 
         } while (opcion < 1 || opcion > 6);
@@ -66,12 +66,12 @@ void MenuPrincipal::iniciar() {
             break;
 
         case 6:
-            cout << "Saliendo..." << endl;
+            cout << "Saliendo..." <<endl;
             break;
 
 
         default:
-            cout << "Opcion invalida." << endl;
+            cout << "Opcion invalida." <<endl;
         }
 
 
@@ -86,16 +86,16 @@ void MenuPrincipal::menuCanchas() {
 
     do {
         system("cls");
-        cout << "\n======================================" << endl;
-        cout << "      GESTION DE CANCHAS" << endl;
-        cout << "======================================" << endl << endl;
-        cout << "1. Registrar cancha" << endl
-            << "2. Mostrar todas las canchas" << endl
-            << "3. Buscar cancha por codigo" << endl
-            << "4. Modificar precio" << endl
-            << "5. Gestion de mantenimiento" << endl
-            << "6. Reporte de ocupacion" << endl
-            << "7. Volver al menu principal" << endl << endl;
+        cout << "\n======================================" <<endl;
+        cout << "      GESTION DE CANCHAS" <<endl;
+        cout << "======================================" <<endl <<endl;
+        cout << "1. Registrar cancha" <<endl
+            << "2. Mostrar todas las canchas" <<endl
+            << "3. Buscar cancha por codigo" <<endl
+            << "4. Modificar precio" <<endl
+            << "5. Gestion de mantenimiento" <<endl
+            << "6. Reporte de ocupacion" <<endl
+            << "7. Volver al menu principal" <<endl <<endl;
 
         do {
             cout << "Seleccione una opcion: ";
@@ -105,11 +105,11 @@ void MenuPrincipal::menuCanchas() {
                 cin.clear();
                 cin.ignore(1000, '\n');
 
-                cout << "\nError. Debe ingresar un valor numerico!" << endl;
+                cout << "\nError. Debe ingresar un valor numerico!" <<endl;
                 opcion = -1;
             }
             else if (opcion < 1 || opcion > 7) {
-                cout << "\nError. Debe seleccionar una opcion entre 1 y 7!" << endl;
+                cout << "\nError. Debe seleccionar una opcion entre 1 y 7!" <<endl;
             }
 
         } while (opcion < 1 || opcion > 7);
@@ -142,11 +142,11 @@ void MenuPrincipal::menuCanchas() {
 
         case 7:
             system("cls");
-            cout << "\nRegresando al menu principal..." << endl;
+            cout << "\nRegresando al menu principal..." <<endl;
             break;
 
         default:
-            cout << "\nOpcion invalida." << endl;
+            cout << "\nOpcion invalida." <<endl;
         }
 
     } while (opcion != 7);
@@ -156,36 +156,50 @@ void MenuPrincipal::registrarCancha() {
     system("cls");
     int idCancha;
     string tipoDeporte;
-    float precioHora;
+    int precioHora;
 
-    cout << "===== REGISTRO DE CANCHA =====" << endl;
-    cout << "Recuerde que el maximo es de [10] canchas en total! \nActualmente hay un total de: [" << coleccionCanchas.getCantidad() << "]" << endl;
+    cout << "===== REGISTRO DE CANCHA =====" <<endl;
+    cout << "Recuerde que el maximo es de [10] canchas en total! \nActualmente hay un total de: [" << coleccionCanchas.getCantidad() << "]" <<endl;
 
     if (coleccionCanchas.getCantidad() >= 10) {
-        cout << "Error. Ya se alcanzo el maximo de 10 canchas!" << endl;
+        cout << "Error. Ya se alcanzo el maximo de 10 canchas!" <<endl;
         system("pause");
         return;
     }
 
+    string codigo;
+
     do {
-        cout << "Digite el codigo de la cancha: ";
-        cin >> idCancha;
+        cout << "\nDigite el codigo de la cancha (2 digitos): C-";
+        cin >> codigo;
 
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(1000, '\n');
+        if (codigo.length() != 2) {
+            cout << "Error. Debe ingresar exactamente 2 digitos!" << endl;
+            idCancha = -1;
+            continue;
+        }
 
-            cout << "Error. Debe ingresar un codigo numerico!" << endl;
+        bool valido = true;
+        idCancha = 0;
+
+        for (char ch : codigo) {
+            if (ch < '0' || ch > '9') {
+                valido = false;
+                break;
+            }
+
+            idCancha = idCancha * 10 + (ch - '0');
+        }
+
+        if (!valido) {
+            cout << "Error. Debe ingresar solo numeros!" << endl;
             idCancha = -1;
         }
-        else if (idCancha <= 0) {
-            cout << "Error. El codigo debe ser mayor que 0!" << endl;
-        }
 
-    } while (idCancha <= 0);
+    } while (idCancha < 1);
 
     if (coleccionCanchas.buscarCancha(idCancha) != nullptr) {
-        cout << "Error. Ya existe una cancha con ese codigo!" << endl;
+        cout << "Error. Ya existe una cancha con ese codigo!" <<endl;
         system("pause");
         system("cls");
         return;
@@ -195,11 +209,11 @@ void MenuPrincipal::registrarCancha() {
 
     do {
 
-        cout << "\n===== DEPORTES DISPONIBLES =====" << endl;
-        cout << "- Futbol" << endl;
-        cout << "- Baloncesto" << endl;
-        cout << "- Voleibol" << endl;
-        cout << "- Tenis" << endl;
+        cout << "\n===== DEPORTES DISPONIBLES =====" <<endl;
+        cout << "- Futbol" <<endl;
+        cout << "- Baloncesto" <<endl;
+        cout << "- Voleibol" <<endl;
+        cout << "- Tenis" <<endl;
 
         cout << "\nDigite el deporte que desea practicar: ";
         getline(cin, tipoDeporte);
@@ -209,7 +223,7 @@ void MenuPrincipal::registrarCancha() {
             tipoDeporte != "Voleibol" &&
             tipoDeporte != "Tenis") {
 
-            cout << "\nError. Debe ingresar uno de los deportes disponibles!" << endl;
+            cout << "\nError. Debe ingresar uno de los deportes disponibles!" <<endl;
         }
 
     } while (tipoDeporte != "Futbol" &&
@@ -217,20 +231,42 @@ void MenuPrincipal::registrarCancha() {
         tipoDeporte != "Voleibol" &&
         tipoDeporte != "Tenis");
 
+    string entrada;
+
     do {
-        cout << "Digite el precio por hora (No ingrese espacios): ";
+        cout << "\nDigite el precio por hora (No puede ser menor que 100 ni mayor que 100 000)\n(Mo ingrese espacios por favor!): "<<endl;
+        getline(cin, entrada);
 
-        cin >> precioHora;
+        bool valido = true;
 
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(1000, '\n');
+        for (char ch : entrada) {
 
-            cout << "Error. Debe ingresar un valor numerico!" << endl;
-            precioHora = -1;
+            if (ch == ' ') {
+                cout << "Error. No se permiten espacios." <<endl;
+                valido = false;
+                break;
+            }
+
+            if (ch < '0' || ch > '9') {
+                cout << "Error. Debe ingresar solo numeros." <<endl;
+                valido = false;
+                break;
+            }
         }
-        else if (precioHora <= 0) {
-            cout << "Error. El precio debe ser mayor que 0!" << endl;
+
+        if (valido) {
+            precioHora = 0;
+            for (char ch : entrada) {
+                precioHora = precioHora * 10 + (ch - '0');
+            }
+
+            if (precioHora < 100 || precioHora > 100000) {
+                cout << "Error. El precio no puede ser menor que 100 ni mayor que 100 000!" << endl;
+                precioHora = -1;
+            }
+        }
+        else {
+            precioHora = -1;
         }
 
     } while (precioHora <= 0);
@@ -245,19 +281,19 @@ void MenuPrincipal::registrarCancha() {
         new Cancha(idCancha, tipoDeporte, precioHora, disponibilidad);
     coleccionCanchas.agregarCancha(nuevaCancha);
 
-    cout << "\nCancha registrada correctamente." << endl;
+    cout << "\nCancha registrada correctamente." <<endl;
     system("pause");
 }
 
 void MenuPrincipal::mostrarCanchas() {
     system("cls");
-    cout << "Entrando a mostrarCanchas..." << endl;
+    cout << "Entrando a mostrarCanchas...\n\n" <<endl;
 
     if (coleccionCanchas.getCantidad() == 0) {
-        cout << "No existen canchas registradas actualmente!" << endl;
+        cout << "No existen canchas registradas actualmente!" <<endl;
     }
     else {
-        cout << coleccionCanchas.toStringListaCanchas() << endl;
+        cout << coleccionCanchas.toStringListaCanchas() <<endl;
     }
     system("pause");
 }
@@ -267,30 +303,30 @@ void MenuPrincipal::buscarCancha() {
 
     int idCancha;
 
-    cout << "===== BUSQUEDA DE CANCHA =====" << endl;
+    cout << "===== BUSQUEDA DE CANCHA =====" <<endl;
     cout << "Actualmente hay un total de: ["
         << coleccionCanchas.getCantidad()
-        << "] canchas registradas." << endl;
+        << "] canchas registradas." <<endl;
 
     if (coleccionCanchas.getCantidad() == 0) {
-        cout << "Error. No existen canchas registradas!" << endl;
+        cout << "Error. No existen canchas registradas!" <<endl;
         system("pause");
         return;
     }
 
     do {
-        cout << "\nDigite el codigo de la cancha que desea buscar: ";
+        cout << "\nDigite el codigo de la cancha que desea buscar: C-";
         cin >> idCancha;
 
         if (cin.fail()) {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un codigo numerico!" << endl;
+            cout << "Error. Debe ingresar un codigo numerico!" <<endl;
             idCancha = -1;
         }
         else if (idCancha <= 0) {
-            cout << "Error. El codigo debe ser mayor que 0!" << endl;
+            cout << "Error. El codigo debe ser mayor que 0!" <<endl;
         }
 
     } while (idCancha <= 0);
@@ -298,11 +334,11 @@ void MenuPrincipal::buscarCancha() {
     Cancha* cancha = coleccionCanchas.buscarCancha(idCancha);
 
     if (cancha != nullptr) {
-        cout << "\nCancha encontrada!" << endl;
-        cout << cancha->toStringCancha() << endl;
+        cout << "\nCancha encontrada!" <<endl;
+        cout << cancha->toStringCancha() <<endl;
     }
     else {
-        cout << "\nError. No existe una cancha con ese codigo!" << endl;
+        cout << "\nError. No existe una cancha con ese codigo!" <<endl;
     }
 
     system("pause");
@@ -312,32 +348,32 @@ void MenuPrincipal::modificarPrecio() {
     system("cls");
 
     int idCancha;
-    float nuevoPrecio;
+    int nuevoPrecio;
 
-    cout << "===== MODIFICACION DE PRECIO =====" << endl;
+    cout << "===== MODIFICACION DE PRECIO =====" <<endl;
     cout << "Actualmente hay un total de: ["
         << coleccionCanchas.getCantidad()
-        << "] canchas registradas." << endl;
+        << "] canchas registradas." <<endl;
 
     if (coleccionCanchas.getCantidad() == 0) {
-        cout << "Error. No existen canchas registradas!" << endl;
+        cout << "Error. No existen canchas registradas!" <<endl;
         system("pause");
         return;
     }
 
     do {
-        cout << "\nDigite el codigo de la cancha que desea modificar: ";
+        cout << "\nDigite el codigo de la cancha que desea modificar: C-";
         cin >> idCancha;
 
         if (cin.fail()) {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un codigo numerico!" << endl;
+            cout << "Error. Debe ingresar un codigo numerico!" <<endl;
             idCancha = -1;
         }
         else if (idCancha <= 0) {
-            cout << "Error. El codigo debe ser mayor que 0!" << endl;
+            cout << "Error. El codigo debe ser mayor que 0!" <<endl;
         }
 
     } while (idCancha <= 0);
@@ -345,7 +381,7 @@ void MenuPrincipal::modificarPrecio() {
     Cancha* cancha = coleccionCanchas.buscarCancha(idCancha);
 
     if (cancha == nullptr) {
-        cout << "\nError. No existe una cancha con ese codigo!" << endl;
+        cout << "\nError. No existe una cancha con ese codigo!" <<endl;
         system("pause");
         return;
     }
@@ -358,20 +394,20 @@ void MenuPrincipal::modificarPrecio() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un valor numerico!" << endl;
+            cout << "Error. Debe ingresar un valor numerico!" <<endl;
             nuevoPrecio = -1;
         }
         else if (nuevoPrecio <= 0) {
-            cout << "Error. El precio debe ser mayor que 0!" << endl;
+            cout << "Error. El precio debe ser mayor que 0!" <<endl;
         }
 
     } while (nuevoPrecio <= 0);
 
     if (coleccionCanchas.modificarPrecio(idCancha, nuevoPrecio)) {
-        cout << "\nPrecio modificado correctamente!" << endl;
+        cout << "\nPrecio modificado correctamente!" <<endl;
     }
     else {
-        cout << "\nError. No fue posible modificar el precio!" << endl;
+        cout << "\nError. No fue posible modificar el precio!" <<endl;
     }
 
     system("pause");
@@ -384,30 +420,30 @@ void MenuPrincipal::mantenimientoCancha() {
     int franja;
     int opcion;
 
-    cout << "===== GESTION DE MANTENIMIENTO =====" << endl;
+    cout << "===== GESTION DE MANTENIMIENTO =====" <<endl;
     cout << "Actualmente hay un total de: ["
         << coleccionCanchas.getCantidad()
-        << "] canchas registradas." << endl;
+        << "] canchas registradas." <<endl;
 
     if (coleccionCanchas.getCantidad() == 0) {
-        cout << "Error. No existen canchas registradas!" << endl;
+        cout << "Error. No existen canchas registradas!" <<endl;
         system("pause");
         return;
     }
 
     do {
-        cout << "\nDigite el codigo de la cancha: ";
+        cout << "\nDigite el codigo de la cancha: C-";
         cin >> idCancha;
 
         if (cin.fail()) {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un codigo numerico!" << endl;
+            cout << "Error. Debe ingresar un codigo numerico!" <<endl;
             idCancha = -1;
         }
         else if (idCancha <= 0) {
-            cout << "Error. El codigo debe ser mayor que 0!" << endl;
+            cout << "Error. El codigo debe ser mayor que 0!" <<endl;
         }
 
     } while (idCancha <= 0);
@@ -415,15 +451,15 @@ void MenuPrincipal::mantenimientoCancha() {
     Cancha* cancha = coleccionCanchas.buscarCancha(idCancha);
 
     if (cancha == nullptr) {
-        cout << "\nError. No existe una cancha con ese codigo!" << endl;
+        cout << "\nError. No existe una cancha con ese codigo!" <<endl;
         system("pause");
         return;
     }
 
-    cout << "\nCancha encontrada!" << endl;
-    cout << cancha->toStringCancha() << endl;
+    cout << "\nCancha encontrada!" <<endl;
+    cout << cancha->toStringCancha() <<endl;
 
-    cout << "\n===== FRANJAS HORARIAS =====" << endl;
+    cout << "\n===== FRANJAS HORARIAS =====" <<endl;
 
     for (int i = 0; i < 12; i++) {
         int horaInicio = 8 + i;
@@ -432,7 +468,7 @@ void MenuPrincipal::mantenimientoCancha() {
         cout << "[" << i << "] "
             << horaInicio << ":00 - "
             << horaFin << ":00"
-            << endl;
+            <<endl;
     }
 
     do {
@@ -443,18 +479,18 @@ void MenuPrincipal::mantenimientoCancha() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un valor numerico!" << endl;
+            cout << "Error. Debe ingresar un valor numerico!" <<endl;
             franja = -1;
         }
         else if (franja < 0 || franja > 11) {
-            cout << "Error. La posicion de la franja debe estar entre 0 y 11!" << endl;
+            cout << "Error. La posicion de la franja debe estar entre 0 y 11!" <<endl;
         }
 
     } while (franja < 0 || franja > 11);
 
     do {
-        cout << "\n1. Colocar mantenimiento" << endl;
-        cout << "2. Retirar mantenimiento" << endl;
+        cout << "\n1. Colocar mantenimiento" <<endl;
+        cout << "2. Retirar mantenimiento" <<endl;
         cout << "Seleccione una opcion: ";
 
         cin >> opcion;
@@ -463,11 +499,11 @@ void MenuPrincipal::mantenimientoCancha() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un valor numerico!" << endl;
+            cout << "Error. Debe ingresar un valor numerico!" <<endl;
             opcion = -1;
         }
         else if (opcion != 1 && opcion != 2) {
-            cout << "Error. Debe seleccionar 1 o 2!" << endl;
+            cout << "Error. Debe seleccionar 1 o 2!" <<endl;
         }
 
     } while (opcion != 1 && opcion != 2);
@@ -477,13 +513,13 @@ void MenuPrincipal::mantenimientoCancha() {
     case 1:
 
         if (cancha->consultarFranja(franja) == 'M') {
-            cout << "\nError. La franja seleccionada ya se encuentra en mantenimiento!" << endl;
+            cout << "\nError. La franja seleccionada ya se encuentra en mantenimiento!" <<endl;
         }
         else if (cancha->cambiarEstadoFranja(franja, 'M')) {
-            cout << "\nFranja colocada en mantenimiento correctamente!" << endl;
+            cout << "\nFranja colocada en mantenimiento correctamente!" <<endl;
         }
         else {
-            cout << "\nError. No fue posible colocar la franja en mantenimiento!" << endl;
+            cout << "\nError. No fue posible colocar la franja en mantenimiento!" <<endl;
         }
 
         break;
@@ -491,19 +527,19 @@ void MenuPrincipal::mantenimientoCancha() {
     case 2:
 
         if (cancha->consultarFranja(franja) != 'M') {
-            cout << "\nError. La franja seleccionada no se encuentra en mantenimiento!" << endl;
+            cout << "\nError. La franja seleccionada no se encuentra en mantenimiento!" <<endl;
         }
         else if (cancha->cambiarEstadoFranja(franja, 'L')) {
-            cout << "\nMantenimiento retirado correctamente!" << endl;
+            cout << "\nMantenimiento retirado correctamente!" <<endl;
         }
         else {
-            cout << "\nError. No fue posible retirar el mantenimiento!" << endl;
+            cout << "\nError. No fue posible retirar el mantenimiento!" <<endl;
         }
 
         break;
 
     default:
-        cout << "\nError. Opcion invalida!" << endl;
+        cout << "\nError. Opcion invalida!" <<endl;
     }
 
     system("pause");
@@ -512,13 +548,13 @@ void MenuPrincipal::mantenimientoCancha() {
 void MenuPrincipal::reporteOcupacion() {
     system("cls");
 
-    cout << "===== REPORTE DE OCUPACION =====" << endl;
+    cout << "===== REPORTE DE OCUPACION =====" <<endl;
     cout << "Actualmente hay un total de: ["
         << coleccionCanchas.getCantidad()
-        << "] canchas registradas." << endl;
+        << "] canchas registradas." <<endl;
 
     if (coleccionCanchas.getCantidad() == 0) {
-        cout << "Error. No existen canchas registradas!" << endl;
+        cout << "Error. No existen canchas registradas!" <<endl;
         system("pause");
         return;
     }
@@ -549,29 +585,35 @@ void MenuPrincipal::reporteOcupacion() {
         float porcentajeOcupacion = (ocupadas * 100.0f) / 12;
 
         cout << "\n======================================" << endl;
-        cout << "Codigo de cancha: ["
-            << cancha->getIdCancha()
-            << "]" << endl;
+        cout << "Codigo de cancha: [C-";
+        if (cancha->getIdCancha() < 10) {
+            cout << "0" << cancha->getIdCancha();
+        }
+        else { 
+            cout << cancha->getIdCancha(); 
+        }
+
+        cout << "]" <<endl;
 
         cout << "Tipo de deporte: ["
             << cancha->getTipoDeporte()
-            << "]" << endl;
+            << "]" <<endl;
 
         cout << "Franjas ocupadas: ["
             << ocupadas
-            << "]" << endl;
+            << "]" <<endl;
 
         cout << "Franjas libres: ["
             << libres
-            << "]" << endl;
+            << "]" <<endl;
 
         cout << "Franjas en mantenimiento: ["
             << mantenimiento
-            << "]" << endl;
+            << "]" <<endl;
 
         cout << "Porcentaje de ocupacion: ["
             << porcentajeOcupacion
-            << "%]" << endl;
+            << "%]" <<endl;
     }
 
     system("pause");
@@ -583,14 +625,14 @@ void MenuPrincipal::menuClientes() {
 
     do {
         system("cls");
-        cout << "\n======================================" << endl;
-        cout << "      GESTION DE CLIENTES" << endl;
-        cout << "======================================" << endl << endl;
-        cout << "1. Registrar cliente" << endl
-            << "2. Mostrar listado de clientes" << endl
-            << "3. Buscar cliente por identificacion" << endl
-            << "4. Mostrar reservas de un cliente" << endl
-            << "5. Volver al menu principal" << endl << endl;
+        cout << "\n======================================" <<endl;
+        cout << "      GESTION DE CLIENTES" <<endl;
+        cout << "======================================" <<endl <<endl;
+        cout << "1. Registrar cliente" <<endl
+            << "2. Mostrar listado de clientes" <<endl
+            << "3. Buscar cliente por identificacion" <<endl
+            << "4. Mostrar reservas de un cliente" <<endl
+            << "5. Volver al menu principal" <<endl <<endl;
 
         do {
             cout << "Seleccione una opcion: ";
@@ -600,11 +642,11 @@ void MenuPrincipal::menuClientes() {
                 cin.clear();
                 cin.ignore(1000, '\n');
 
-                cout << "\nError. Debe ingresar un valor numerico!" << endl;
+                cout << "\nError. Debe ingresar un valor numerico!" <<endl;
                 opcion = -1;
             }
             else if (opcion < 1 || opcion > 5) {
-                cout << "\nError. Debe seleccionar una opcion entre 1 y 5!" << endl;
+                cout << "\nError. Debe seleccionar una opcion entre 1 y 5!" <<endl;
             }
 
         } while (opcion < 1 || opcion > 5);
@@ -629,11 +671,11 @@ void MenuPrincipal::menuClientes() {
 
         case 5:
             system("cls");
-            cout << "\nRegresando al menu principal..." << endl;
+            cout << "\nRegresando al menu principal..." <<endl;
             break;
 
         default:
-            cout << "\nOpcion invalida." << endl;
+            cout << "\nOpcion invalida." <<endl;
         }
 
     } while (opcion != 5);
@@ -645,12 +687,12 @@ void MenuPrincipal::registrarCliente() {
     string nombreCliente;
     string numTel;
 
-    cout << "===== REGISTRO DE CLIENTE =====" << endl;
+    cout << "===== REGISTRO DE CLIENTE =====" <<endl;
     cout << "Recuerde que el maximo es de [100] clientes en total! \nActualmente hay un total de: ["
-        << coleccionClientes.getCantidad() << "]" << endl;
+        << coleccionClientes.getCantidad() << "]" <<endl;
 
     if (coleccionClientes.getCantidad() >= 100) {
-        cout << "Error. Ya se alcanzo el maximo de 100 clientes!" << endl;
+        cout << "Error. Ya se alcanzo el maximo de 100 clientes!" <<endl;
         system("pause");
         return;
     }
@@ -663,17 +705,17 @@ void MenuPrincipal::registrarCliente() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar una identificacion numerica!" << endl;
+            cout << "Error. Debe ingresar una identificacion numerica!" <<endl;
             idCliente = -1;
         }
         else if (idCliente <= 0) {
-            cout << "Error. La identificacion debe ser mayor que 0!" << endl;
+            cout << "Error. La identificacion debe ser mayor que 0!" <<endl;
         }
 
     } while (idCliente <= 0);
 
     if (coleccionClientes.buscarCliente(idCliente) != nullptr) {
-        cout << "Error. Ya existe un cliente con esa identificacion!" << endl;
+        cout << "Error. Ya existe un cliente con esa identificacion!" <<endl;
         system("pause");
         return;
     }
@@ -682,19 +724,27 @@ void MenuPrincipal::registrarCliente() {
 
     bool nombreValido = false;
     do {
-        cout << "Digite el nombre completo del cliente  (No ingresar acentos, numeros o simbolos): ";
+        cout << "Digite el nombre completo del cliente: (No ingresar acentos, numeros o simbolos): ";
         getline(cin, nombreCliente);
+        bool soloEspacios = true;
 
-        if (nombreCliente.empty()) {
+        for (char ch : nombreCliente) {
+            if (ch != ' ') {
+                soloEspacios = false;
+                break;
+            }
+        }
+
+        if (nombreCliente.empty() || soloEspacios) {
             cout << "Error. El nombre no puede estar vacio!" << endl;
             nombreValido = false;
-        }
-        else {
+  
+        }else {
             nombreValido = true;
             for (char ch : nombreCliente) {
                 if (!((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == ' ')) {
                     nombreValido = false;
-                    cout << "Error. El nombre solo puede contener letras y espacios!" << endl;
+                    cout << "Error. El nombre solo puede contener letras y espacios!" <<endl;
                     break;
                 }
             }
@@ -704,19 +754,19 @@ void MenuPrincipal::registrarCliente() {
 
     bool telefonoValido = false;
     do {
-        cout << "Digite el numero de telefono: ";
+        cout << "Digite el numero de telefono (Debe contener 8 digitos): ";
         getline(cin, numTel);
 
         if (numTel.empty()) {
-            cout << "Error. El telefono no puede estar vacio!" << endl;
+            cout << "Error. El telefono no puede estar vacio!" <<endl;
             telefonoValido = false;
         }
         else {
             telefonoValido = true;
             for (char ch : numTel) {
-                if (!(ch >= '0' && ch <= '9')) {
+                if (!(ch >= '0' && ch <= '9' && numTel.length() == 8)) {
                     telefonoValido = false;
-                    cout << "Error. El telefono solo puede contener digitos!" << endl;
+                    cout << "Error. El telefono solo puede contener 8 digitos!" <<endl;
                     break;
                 }
             }
@@ -727,19 +777,19 @@ void MenuPrincipal::registrarCliente() {
     Cliente* nuevoCliente = new Cliente(idCliente, nombreCliente, numTel);
     coleccionClientes.agregarCliente(nuevoCliente);
 
-    cout << "\nCliente registrado correctamente." << endl;
+    cout << "\nCliente registrado correctamente." <<endl;
     system("pause");
 }
 
 void MenuPrincipal::mostrarClientes() {
     system("cls");
-    cout << "===== LISTADO DE CLIENTES =====" << endl;
+    cout << "===== LISTADO DE CLIENTES =====" <<endl;
 
     if (coleccionClientes.getCantidad() == 0) {
-        cout << "No existen clientes registrados actualmente!" << endl;
+        cout << "No existen clientes registrados actualmente!" <<endl;
     }
     else {
-        cout << coleccionClientes.toStringListaClientes() << endl;
+        cout << coleccionClientes.toStringListaClientes() <<endl;
     }
     system("pause");
 }
@@ -749,13 +799,13 @@ void MenuPrincipal::buscarCliente() {
 
     int idCliente;
 
-    cout << "===== BUSQUEDA DE CLIENTE =====" << endl;
+    cout << "===== BUSQUEDA DE CLIENTE =====" <<endl;
     cout << "Actualmente hay un total de: ["
         << coleccionClientes.getCantidad()
-        << "] clientes registrados." << endl;
+        << "] clientes registrados." <<endl;
 
     if (coleccionClientes.getCantidad() == 0) {
-        cout << "Error. No existen clientes registrados!" << endl;
+        cout << "Error. No existen clientes registrados!" <<endl;
         system("pause");
         return;
     }
@@ -768,11 +818,11 @@ void MenuPrincipal::buscarCliente() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar una identificacion numerica!" << endl;
+            cout << "Error. Debe ingresar una identificacion numerica!" <<endl;
             idCliente = -1;
         }
         else if (idCliente <= 0) {
-            cout << "Error. La identificacion debe ser mayor que 0!" << endl;
+            cout << "Error. La identificacion debe ser mayor que 0!" <<endl;
         }
 
     } while (idCliente <= 0);
@@ -780,11 +830,11 @@ void MenuPrincipal::buscarCliente() {
     Cliente* cliente = coleccionClientes.buscarCliente(idCliente);
 
     if (cliente != nullptr) {
-        cout << "\nCliente encontrado!" << endl;
-        cout << cliente->toStringCliente() << endl;
+        cout << "\nCliente encontrado!" <<endl;
+        cout << cliente->toStringCliente() <<endl;
     }
     else {
-        cout << "\nError. No existe un cliente con esa identificacion!" << endl;
+        cout << "\nError. No existe un cliente con esa identificacion!" <<endl;
     }
 
     system("pause");
@@ -795,10 +845,10 @@ void MenuPrincipal::mostrarReservasCliente() {
 
     int idCliente;
 
-    cout << "===== RESERVAS DE UN CLIENTE =====" << endl;
+    cout << "===== RESERVAS DE UN CLIENTE =====" <<endl;
 
     if (coleccionClientes.getCantidad() == 0) {
-        cout << "Error. No existen clientes registrados!" << endl;
+        cout << "Error. No existen clientes registrados!" <<endl;
         system("pause");
         return;
     }
@@ -811,11 +861,11 @@ void MenuPrincipal::mostrarReservasCliente() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar una identificacion numerica!" << endl;
+            cout << "Error. Debe ingresar una identificacion numerica!" <<endl;
             idCliente = -1;
         }
         else if (idCliente <= 0) {
-            cout << "Error. La identificacion debe ser mayor que 0!" << endl;
+            cout << "Error. La identificacion debe ser mayor que 0!" <<endl;
         }
 
     } while (idCliente <= 0);
@@ -823,15 +873,15 @@ void MenuPrincipal::mostrarReservasCliente() {
     Cliente* cliente = coleccionClientes.buscarCliente(idCliente);
 
     if (cliente == nullptr) {
-        cout << "\nError. No existe un cliente con esa identificacion!" << endl;
+        cout << "\nError. No existe un cliente con esa identificacion!" <<endl;
         system("pause");
         return;
     }
 
-    cout << "\nCliente encontrado!" << endl;
-    cout << cliente->toStringCliente() << endl;
+    cout << "\nCliente encontrado!" <<endl;
+    cout << cliente->toStringCliente() <<endl;
 
-    cout << coleccionReservas.mostrarReservasPorCliente(idCliente) << endl;
+    cout << coleccionReservas.mostrarReservasPorCliente(idCliente) <<endl;
 
     system("pause");
 }
@@ -842,13 +892,13 @@ void MenuPrincipal::menuEspera() {
 
     do {
         system("cls");
-        cout << "\n======================================" << endl;
-        cout << "      LISTADO DE ESPERA" << endl;
-        cout << "======================================" << endl << endl;
-        cout << "1. Registrar cliente en espera" << endl
-            << "2. Mostrar listado de espera" << endl
-            << "3. Cambiar estado de una solicitud" << endl
-            << "4. Volver al menu principal" << endl << endl;
+        cout << "\n======================================" <<endl;
+        cout << "      LISTADO DE ESPERA" <<endl;
+        cout << "======================================" <<endl <<endl;
+        cout << "1. Registrar cliente en espera" <<endl
+            << "2. Mostrar listado de espera" <<endl
+            << "3. Cambiar estado de una solicitud" <<endl
+            << "4. Volver al menu principal" <<endl <<endl;
 
         do {
             cout << "Seleccione una opcion: ";
@@ -858,11 +908,11 @@ void MenuPrincipal::menuEspera() {
                 cin.clear();
                 cin.ignore(1000, '\n');
 
-                cout << "\nError. Debe ingresar un valor numerico!" << endl;
+                cout << "\nError. Debe ingresar un valor numerico!" <<endl;
                 opcion = -1;
             }
             else if (opcion < 1 || opcion > 4) {
-                cout << "\nError. Debe seleccionar una opcion entre 1 y 4!" << endl;
+                cout << "\nError. Debe seleccionar una opcion entre 1 y 4!" <<endl;
             }
 
         } while (opcion < 1 || opcion > 4);
@@ -883,11 +933,11 @@ void MenuPrincipal::menuEspera() {
 
         case 4:
             system("cls");
-            cout << "\nRegresando al menu principal..." << endl;
+            cout << "\nRegresando al menu principal..." <<endl;
             break;
 
         default:
-            cout << "\nOpcion invalida." << endl;
+            cout << "\nOpcion invalida." <<endl;
         }
 
     } while (opcion != 4);
@@ -900,23 +950,17 @@ void MenuPrincipal::registrarEnEspera() {
     int idCancha;
     int franja;
 
-    cout << "===== REGISTRAR CLIENTE EN ESPERA =====" << endl;
+    cout << "===== REGISTRAR CLIENTE EN ESPERA =====" <<endl;
 
 
     if (coleccionClientes.getCantidad() == 0) {
-        cout << "Error. No existen clientes registrados!" << endl;
-        system("pause");
-        return;
-    }
-
-    if (coleccionClientes.getCantidad() == 0) {
-        cout << "Error. No existen clientes registrados!" << endl;
+        cout << "Error. No existen clientes registrados!" <<endl;
         system("pause");
         return;
     }
 
     if (coleccionCanchas.getCantidad() == 0) {
-        cout << "Error. No existen canchas registradas!" << endl;
+        cout << "Error. No existen canchas registradas!" <<endl;
         system("pause");
         return;
     }
@@ -929,11 +973,11 @@ void MenuPrincipal::registrarEnEspera() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar una identificacion numerica!" << endl;
+            cout << "Error. Debe ingresar una identificacion numerica!" <<endl;
             idCliente = -1;
         }
         else if (idCliente <= 0) {
-            cout << "Error. La identificacion debe ser mayor que 0!" << endl;
+            cout << "Error. La identificacion debe ser mayor que 0!" <<endl;
         }
 
     } while (idCliente <= 0);
@@ -941,7 +985,7 @@ void MenuPrincipal::registrarEnEspera() {
     Cliente* cliente = coleccionClientes.buscarCliente(idCliente);
 
     if (cliente == nullptr) {
-        cout << "\nError. No existe un cliente con esa identificacion!" << endl;
+        cout << "\nError. No existe un cliente con esa identificacion!" <<endl;
         system("pause");
         return;
     }
@@ -954,11 +998,11 @@ void MenuPrincipal::registrarEnEspera() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un codigo numerico!" << endl;
+            cout << "Error. Debe ingresar un codigo numerico!" <<endl;
             idCancha = -1;
         }
         else if (idCancha <= 0) {
-            cout << "Error. El codigo debe ser mayor que 0!" << endl;
+            cout << "Error. El codigo debe ser mayor que 0!" <<endl;
         }
 
     } while (idCancha <= 0);
@@ -966,12 +1010,12 @@ void MenuPrincipal::registrarEnEspera() {
     Cancha* cancha = coleccionCanchas.buscarCancha(idCancha);
 
     if (cancha == nullptr) {
-        cout << "\nError. No existe una cancha con ese codigo!" << endl;
+        cout << "\nError. No existe una cancha con ese codigo!" <<endl;
         system("pause");
         return;
     }
 
-    cout << "\n===== FRANJAS HORARIAS =====" << endl;
+    cout << "\n===== FRANJAS HORARIAS =====" <<endl;
 
     for (int i = 0; i < 12; i++) {
         int horaInicio = 8 + i;
@@ -980,7 +1024,7 @@ void MenuPrincipal::registrarEnEspera() {
         cout << "[" << i << "] "
             << horaInicio << ":00 - "
             << horaFin << ":00"
-            << endl;
+            <<endl;
     }
 
     do {
@@ -992,17 +1036,17 @@ void MenuPrincipal::registrarEnEspera() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un valor numerico!" << endl;
+            cout << "Error. Debe ingresar un valor numerico!" <<endl;
             franja = -1;
         }
         else if (franja < 0 || franja > 11) {
-            cout << "Error. La posicion de la franja debe estar entre 0 y 11!" << endl;
+            cout << "Error. La posicion de la franja debe estar entre 0 y 11!" <<endl;
         }
 
     } while (franja < 0 || franja > 11);
 
     if (cancha->consultarFranja(franja) != 'O') {
-        cout << "\nError. Solo se puede poner en espera una franja que este OCUPADA!" << endl;
+        cout << "\nError. Solo se puede poner en espera una franja que este OCUPADA!" <<endl;
         system("pause");
         return;
     }
@@ -1010,10 +1054,10 @@ void MenuPrincipal::registrarEnEspera() {
     RegistroEspera* nuevoRegistro = new RegistroEspera(0, 'E', cliente, cancha, franja);
 
     if (coleccionEspera.AgregarRegistroEspera(nuevoRegistro)) {
-        cout << "\nCliente registrado en la lista de espera correctamente!" << endl;
+        cout << "\nCliente registrado en la lista de espera correctamente!" <<endl;
     }
     else {
-        cout << "\nError. No fue posible registrar la solicitud (lista llena o ya existe una igual)." << endl;
+        cout << "\nError. No fue posible registrar la solicitud (lista llena o ya existe una igual)." <<endl;
         delete nuevoRegistro;
     }
 
@@ -1022,7 +1066,7 @@ void MenuPrincipal::registrarEnEspera() {
 
 void MenuPrincipal::mostrarListadoEspera() {
     system("cls");
-    cout << coleccionEspera.toStringListaEspera() << endl;
+    cout << coleccionEspera.toStringListaEspera() <<endl;
     system("pause");
 }
 
@@ -1033,11 +1077,11 @@ void MenuPrincipal::cambiarEstadoEspera() {
     int opcion;
     char nuevoEstado;
 
-    cout << "===== CAMBIAR ESTADO DE SOLICITUD =====" << endl;
-    cout << coleccionEspera.toStringListaEspera() << endl;
+    cout << "===== CAMBIAR ESTADO DE SOLICITUD =====" <<endl;
+    cout << coleccionEspera.toStringListaEspera() <<endl;
 
     if (coleccionClientes.getCantidad() == 0) {
-        cout << "Error. No existen clientes registrados!" << endl;
+        cout << "Error. No existen clientes registrados!" <<endl;
         system("pause");
         return;
     }
@@ -1050,19 +1094,19 @@ void MenuPrincipal::cambiarEstadoEspera() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un valor numerico!" << endl;
+            cout << "Error. Debe ingresar un valor numerico!" <<endl;
             idEspera = -1;
         }
         else if (idEspera <= 0) {
-            cout << "Error. El numero de solicitud debe ser mayor que 0!" << endl;
+            cout << "Error. El numero de solicitud debe ser mayor que 0!" <<endl;
         }
 
     } while (idEspera <= 0);
 
     do {
-        cout << "\n1. Esperando" << endl;
-        cout << "2. Asignado" << endl;
-        cout << "3. Cancelado" << endl;
+        cout << "\n1. Esperando" <<endl;
+        cout << "2. Asignado" <<endl;
+        cout << "3. Cancelado" <<endl;
         cout << "Seleccione el nuevo estado: ";
         cin >> opcion;
 
@@ -1070,11 +1114,11 @@ void MenuPrincipal::cambiarEstadoEspera() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un valor numerico!" << endl;
+            cout << "Error. Debe ingresar un valor numerico!" <<endl;
             opcion = -1;
         }
         else if (opcion < 1 || opcion > 3) {
-            cout << "Error. Debe seleccionar una opcion entre 1 y 3!" << endl;
+            cout << "Error. Debe seleccionar una opcion entre 1 y 3!" <<endl;
         }
 
     } while (opcion < 1 || opcion > 3);
@@ -1084,10 +1128,10 @@ void MenuPrincipal::cambiarEstadoEspera() {
     else nuevoEstado = 'C';
 
     if (coleccionEspera.cambiarEstadoSolicitud(idEspera, nuevoEstado)) {
-        cout << "\nEstado actualizado correctamente!" << endl;
+        cout << "\nEstado actualizado correctamente!" <<endl;
     }
     else {
-        cout << "\nError. No existe una solicitud con ese numero!" << endl;
+        cout << "\nError. No existe una solicitud con ese numero!" <<endl;
     }
 
     system("pause");
@@ -1099,15 +1143,15 @@ void MenuPrincipal::menuReservas() {
 
     do {
         system("cls");
-        cout << "\n======================================" << endl;
-        cout << "      GESTION DE RESERVAS" << endl;
-        cout << "======================================" << endl << endl;
-        cout << "1. Registrar reserva" << endl
-            << "2. Mostrar todas las reservas" << endl
-            << "3. Buscar reserva por numero" << endl
-            << "4. Mostrar reservas de una cancha" << endl
-            << "5. Cancelar reserva" << endl
-            << "6. Volver al menu principal" << endl << endl;
+        cout << "\n======================================" <<endl;
+        cout << "      GESTION DE RESERVAS" <<endl;
+        cout << "======================================" <<endl <<endl;
+        cout << "1. Registrar reserva" <<endl
+            << "2. Mostrar todas las reservas" <<endl
+            << "3. Buscar reserva por numero" <<endl
+            << "4. Mostrar reservas de una cancha" <<endl
+            << "5. Cancelar reserva" <<endl
+            << "6. Volver al menu principal" <<endl <<endl;
 
         do {
             cout << "Seleccione una opcion: ";
@@ -1117,11 +1161,11 @@ void MenuPrincipal::menuReservas() {
                 cin.clear();
                 cin.ignore(1000, '\n');
 
-                cout << "\nError. Debe ingresar un valor numerico!" << endl;
+                cout << "\nError. Debe ingresar un valor numerico!" <<endl;
                 opcion = -1;
             }
             else if (opcion < 1 || opcion > 6) {
-                cout << "\nError. Debe seleccionar una opcion entre 1 y 6!" << endl;
+                cout << "\nError. Debe seleccionar una opcion entre 1 y 6!" <<endl;
             }
 
         } while (opcion < 1 || opcion > 6);
@@ -1150,11 +1194,11 @@ void MenuPrincipal::menuReservas() {
 
         case 6:
             system("cls");
-            cout << "\nRegresando al menu principal..." << endl;
+            cout << "\nRegresando al menu principal..." <<endl;
             break;
 
         default:
-            cout << "\nOpcion invalida." << endl;
+            cout << "\nOpcion invalida." <<endl;
         }
 
     } while (opcion != 6);
@@ -1164,23 +1208,23 @@ void MenuPrincipal::registrarReserva() {
     system("cls");
     int idCliente, idCancha, franjaInicial, cantidadFranjas;
 
-    cout << "===== REGISTRAR RESERVA =====" << endl;
-    cout << "Recuerde que el maximo es de [120] reservas en total! \nActualmente hay un total de: [" << coleccionReservas.getCantidad() << "]" << endl;
+    cout << "===== REGISTRAR RESERVA =====" <<endl;
+    cout << "Recuerde que el maximo es de [120] reservas en total! \nActualmente hay un total de: [" << coleccionReservas.getCantidad() << "]" <<endl;
 
     if (coleccionReservas.getCantidad() >= 120) {
-        cout << "Error. Ya se alcanzo el maximo de 120 reservas!" << endl;
+        cout << "Error. Ya se alcanzo el maximo de 120 reservas!" <<endl;
         system("pause");
         return;
     }
 
     if (coleccionClientes.getCantidad() == 0) {
-        cout << "Error. No existen clientes registrados!" << endl;
+        cout << "Error. No existen clientes registrados!" <<endl;
         system("pause");
         return;
     }
 
     if (coleccionCanchas.getCantidad() == 0) {
-        cout << "Error. No existen canchas registradas!" << endl;
+        cout << "Error. No existen canchas registradas!" <<endl;
         system("pause");
         return;
     }
@@ -1193,11 +1237,11 @@ void MenuPrincipal::registrarReserva() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar una identificacion numerica!" << endl;
+            cout << "Error. Debe ingresar una identificacion numerica!" <<endl;
             idCliente = -1;
         }
         else if (idCliente <= 0) {
-            cout << "Error. La identificacion debe ser mayor que 0!" << endl;
+            cout << "Error. La identificacion debe ser mayor que 0!" <<endl;
         }
 
     } while (idCliente <= 0);
@@ -1205,7 +1249,7 @@ void MenuPrincipal::registrarReserva() {
     Cliente* cliente = coleccionClientes.buscarCliente(idCliente);
 
     if (cliente == nullptr) {
-        cout << "\nError. No existe un cliente con esa identificacion!" << endl;
+        cout << "\nError. No existe un cliente con esa identificacion!" <<endl;
         system("pause");
         return;
     }
@@ -1218,11 +1262,11 @@ void MenuPrincipal::registrarReserva() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un codigo numerico!" << endl;
+            cout << "Error. Debe ingresar un codigo numerico!" <<endl;
             idCancha = -1;
         }
         else if (idCancha <= 0) {
-            cout << "Error. El codigo debe ser mayor que 0!" << endl;
+            cout << "Error. El codigo debe ser mayor que 0!" <<endl;
         }
 
     } while (idCancha <= 0);
@@ -1230,16 +1274,27 @@ void MenuPrincipal::registrarReserva() {
     Cancha* cancha = coleccionCanchas.buscarCancha(idCancha);
 
     if (cancha == nullptr) {
-        cout << "\nError. No existe una cancha con ese codigo!" << endl;
+        cout << "\nError. No existe una cancha con ese codigo!" <<endl;
         system("pause");
         return;
     }
 
-    cout << "\n===== DISPONIBILIDAD DE LA CANCHA [" << idCancha << "] =====" << endl;
+    
+    if (idCancha < 10) {
+        cout << "\n===== DISPONIBILIDAD DE LA CANCHA [C-0"
+            << idCancha
+            << "] =====" << endl;
+    }
+    else {
+        cout << "\n===== DISPONIBILIDAD DE LA CANCHA [C-"
+            << idCancha
+            << "] =====" << endl;
+    }
+
     for (int i = 0; i < 12; i++) {
         int horaInicio = 8 + i;
         int horaFin = 9 + i;
-        cout << "[" << i << "] " << horaInicio << ":00 - " << horaFin << ":00 --> " << cancha->consultarFranja(i) << endl;
+        cout << "[" << i << "] " << horaInicio << ":00 - " << horaFin << ":00 --> " << cancha->consultarFranja(i) <<endl;
     }
 
     do {
@@ -1250,11 +1305,11 @@ void MenuPrincipal::registrarReserva() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un valor numerico!" << endl;
+            cout << "Error. Debe ingresar un valor numerico!" <<endl;
             franjaInicial = -1;
         }
         else if (franjaInicial < 0 || franjaInicial > 11) {
-            cout << "Error. La posicion de la franja debe estar entre 0 y 11!" << endl;
+            cout << "Error. La posicion de la franja debe estar entre 0 y 11!" <<endl;
         }
 
     } while (franjaInicial < 0 || franjaInicial > 11);
@@ -1267,21 +1322,21 @@ void MenuPrincipal::registrarReserva() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un valor numerico!" << endl;
+            cout << "Error. Debe ingresar un valor numerico!" <<endl;
             cantidadFranjas = -1;
         }
         else if (cantidadFranjas < 1) {
-            cout << "Error. Debe reservar al menos 1 franja!" << endl;
+            cout << "Error. Debe reservar al menos 1 franja!" <<endl;
         }
 
     } while (cantidadFranjas < 1);
 
     if (coleccionReservas.registrarReserva(cliente, cancha, franjaInicial, cantidadFranjas)) {
-        cout << "\nReserva registrada correctamente." << endl;
+        cout << "\nReserva registrada correctamente." <<endl;
     }
     else {
-        cout << "\nError. No se pudo registrar la reserva (franjas fuera de rango, invalidas u ocupadas)." << endl;
-        cout << "Si lo desea, puede registrar al cliente en el listado de espera." << endl;
+        cout << "\nError. No se pudo registrar la reserva (franjas fuera de rango, invalidas u ocupadas)." <<endl;
+        cout << "Si lo desea, puede registrar al cliente en el listado de espera." <<endl;
     }
 
     system("pause");
@@ -1289,13 +1344,13 @@ void MenuPrincipal::registrarReserva() {
 
 void MenuPrincipal::mostrarReservas() {
     system("cls");
-    cout << "===== LISTADO DE RESERVAS =====" << endl;
+    cout << "===== LISTADO DE RESERVAS =====" <<endl;
 
     if (coleccionReservas.getCantidad() == 0) {
-        cout << "No existen reservas registradas actualmente!" << endl;
+        cout << "No existen reservas registradas actualmente!" <<endl;
     }
     else {
-        cout << coleccionReservas.toStringListaReservas() << endl;
+        cout << coleccionReservas.toStringListaReservas() <<endl;
     }
     system("pause");
 }
@@ -1304,10 +1359,10 @@ void MenuPrincipal::buscarReservaMenu() {
     system("cls");
     int numeroReserva;
 
-    cout << "===== BUSCAR RESERVA POR NUMERO =====" << endl;
+    cout << "===== BUSCAR RESERVA POR NUMERO =====" <<endl;
 
     if (coleccionReservas.getCantidad() == 0) {
-        cout << "Error. No existen reservas registradas!" << endl;
+        cout << "Error. No existen reservas registradas!" <<endl;
         system("pause");
         return;
     }
@@ -1320,11 +1375,11 @@ void MenuPrincipal::buscarReservaMenu() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un valor numerico!" << endl;
+            cout << "Error. Debe ingresar un valor numerico!" <<endl;
             numeroReserva = -1;
         }
         else if (numeroReserva <= 0) {
-            cout << "Error. El numero debe ser mayor que 0!" << endl;
+            cout << "Error. El numero debe ser mayor que 0!" <<endl;
         }
 
     } while (numeroReserva <= 0);
@@ -1332,11 +1387,11 @@ void MenuPrincipal::buscarReservaMenu() {
     Reserva* reserva = coleccionReservas.buscarReserva(numeroReserva);
 
     if (reserva == nullptr) {
-        cout << "\nError. No existe una reserva con ese numero!" << endl;
+        cout << "\nError. No existe una reserva con ese numero!" <<endl;
     }
     else {
-        cout << "\nReserva encontrada!" << endl;
-        cout << reserva->toStringReserva() << endl;
+        cout << "\nReserva encontrada!" <<endl;
+        cout << reserva->toStringReserva() <<endl;
     }
 
     system("pause");
@@ -1346,10 +1401,10 @@ void MenuPrincipal::mostrarReservasPorCanchaMenu() {
     system("cls");
     int idCancha;
 
-    cout << "===== RESERVAS DE UNA CANCHA =====" << endl;
+    cout << "===== RESERVAS DE UNA CANCHA =====" <<endl;
 
     if (coleccionCanchas.getCantidad() == 0) {
-        cout << "Error. No existen canchas registradas!" << endl;
+        cout << "Error. No existen canchas registradas!" <<endl;
         system("pause");
         return;
     }
@@ -1362,22 +1417,22 @@ void MenuPrincipal::mostrarReservasPorCanchaMenu() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un codigo numerico!" << endl;
+            cout << "Error. Debe ingresar un codigo numerico!" <<endl;
             idCancha = -1;
         }
         else if (idCancha <= 0) {
-            cout << "Error. El codigo debe ser mayor que 0!" << endl;
+            cout << "Error. El codigo debe ser mayor que 0!" <<endl;
         }
 
     } while (idCancha <= 0);
 
     if (coleccionCanchas.buscarCancha(idCancha) == nullptr) {
-        cout << "\nError. No existe una cancha con ese codigo!" << endl;
+        cout << "\nError. No existe una cancha con ese codigo!" <<endl;
         system("pause");
         return;
     }
 
-    cout << "\n" << coleccionReservas.mostrarReservasPorCancha(idCancha) << endl;
+    cout << "\n" << coleccionReservas.mostrarReservasPorCancha(idCancha) <<endl;
     system("pause");
 }
 
@@ -1385,10 +1440,10 @@ void MenuPrincipal::cancelarReservaMenu() {
     system("cls");
     int numeroReserva;
 
-    cout << "===== CANCELAR RESERVA =====" << endl;
+    cout << "===== CANCELAR RESERVA =====" <<endl;
 
     if (coleccionReservas.getCantidad() == 0) {
-        cout << "Error. No existen reservas registradas!" << endl;
+        cout << "Error. No existen reservas registradas!" <<endl;
         system("pause");
         return;
     }
@@ -1401,11 +1456,11 @@ void MenuPrincipal::cancelarReservaMenu() {
             cin.clear();
             cin.ignore(1000, '\n');
 
-            cout << "Error. Debe ingresar un valor numerico!" << endl;
+            cout << "Error. Debe ingresar un valor numerico!" <<endl;
             numeroReserva = -1;
         }
         else if (numeroReserva <= 0) {
-            cout << "Error. El numero debe ser mayor que 0!" << endl;
+            cout << "Error. El numero debe ser mayor que 0!" <<endl;
         }
 
     } while (numeroReserva <= 0);
@@ -1413,62 +1468,94 @@ void MenuPrincipal::cancelarReservaMenu() {
     Reserva* reserva = coleccionReservas.buscarReserva(numeroReserva);
 
     if (reserva == nullptr) {
-        cout << "\nError. No existe una reserva con ese numero!" << endl;
+        cout << "\nError. No existe una reserva con ese numero!" <<endl;
         system("pause");
         return;
     }
 
     if (reserva->getEstado() != 'A') {
-        cout << "\nError. Esa reserva ya se encuentra cancelada!" << endl;
+        cout << "\nError. Esa reserva ya se encuentra cancelada!" <<endl;
         system("pause");
         return;
     }
 
-    // Guardamos los datos ANTES de cancelar, para poder avisar al listado de espera
+    cout << "\n" << reserva->toStringReserva() << endl;
+
+    char eleccion;
+    cout << "\n¿Seguro que quiere cancelar esta reserva numero: [" << numeroReserva << "]?" << endl;
+    cout << "Esta accion es irreversible!" << endl;
+    cout << "\nOpcion (S/N): ";
+    cin >> eleccion;
+
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "\nOpcion invalida, ingrese S o N!" << endl;
+        system("pause");
+        return;
+    }
+
+    switch(toupper(eleccion)) {
+    case 'S':
+        cout << "\nCancelacion concluida!." << endl;
+        system("pause");
+        break; 
+    case 'N':
+        cout << "\nCancelacion abortada!." << endl;
+        system("pause");
+        return;
+    default:
+        cout << "\nOpcion invalida, ingrese S o N!" << endl;
+        system("pause");
+        return;
+    }
+
     int idCancha = reserva->getCancha()->getIdCancha();
     int franjaInicial = reserva->getFranjaInicial();
     int cantidadFranjas = reserva->getCantidadFranjas();
 
     if (coleccionReservas.cancelarReserva(numeroReserva)) {
-        cout << "\nReserva cancelada correctamente. Las franjas quedaron libres." << endl;
+        cout << "\nReserva cancelada correctamente. Las franjas quedaron libres." <<endl;
 
-        // Aviso de clientes en espera para esa cancha/franja (lo exige el enunciado)
         bool hayEnEspera = false;
         for (int franja = franjaInicial; franja < franjaInicial + cantidadFranjas; franja++) {
             RegistroEspera* espera = coleccionEspera.buscarEsperaPorCanchaFranja(idCancha, franja);
             if (espera != nullptr) {
                 if (!hayEnEspera) {
-                    cout << "\n¡Atencion! Hay clientes en el listado de espera para esta cancha/franja:" << endl;
+                    cout << "\n¡Atencion! Hay clientes en el listado de espera para esta cancha/franja:" <<endl;
                     hayEnEspera = true;
                 }
-                cout << espera->toStringRegistroEspera(espera->getIdSolicitudEspera()) << endl;
+                cout << espera->toStringRegistroEspera(espera->getIdSolicitudEspera()) <<endl;
             }
         }
 
         if (!hayEnEspera) {
-            cout << "\nNo hay clientes en espera para esa cancha/franja." << endl;
+            cout << "\nNo hay clientes en espera para esa cancha/franja." <<endl;
         }
     }
     else {
-        cout << "\nError. No se pudo cancelar la reserva." << endl;
+        cout << "\nError. No se pudo cancelar la reserva." <<endl;
     }
 
     system("pause");
 }
 
-///////////////////////////////Metodos Reportes y estadisticas (Persona 3)//////////////////////////
+/////////////////////////////// Metodos Reportes y estadisticas (Persona 3) //////////////////////////
+
 void MenuPrincipal::menuReportes() {
     int opcion;
 
     do {
         system("cls");
-        cout << "\n======================================" << endl;
-        cout << "      REPORTES Y ESTADISTICAS" << endl;
-        cout << "======================================" << endl << endl;
-        cout << "1. Cancha con mayor cantidad de reservas activas" << endl
-            << "2. Ingreso total generado por reservas activas" << endl
-            << "3. Horas con mayor y menor cantidad de reservas" << endl
-            << "4. Volver al menu principal" << endl << endl;
+        cout << "\n======================================" <<endl;
+        cout << "      REPORTES Y ESTADISTICAS" <<endl;
+        cout << "======================================" <<endl <<endl;
+        cout << "1. Cancha con mayor cantidad de reservas activas" <<endl
+            << "2. Cliente con mayor cantidad de reservas activas" << endl
+            << "3. Ingreso total generado por reservas activas" <<endl
+            << "4. Horas con mayor y menor cantidad de reservas" <<endl
+            << "5. Porcentaje de ocupacion de cada cancha" << endl
+            << "6. Volver al menu principal" <<endl <<endl;
 
         do {
             cout << "Seleccione una opcion: ";
@@ -1478,47 +1565,162 @@ void MenuPrincipal::menuReportes() {
                 cin.clear();
                 cin.ignore(1000, '\n');
 
-                cout << "\nError. Debe ingresar un valor numerico!" << endl;
+                cout << "\nError. Debe ingresar un valor numerico!" <<endl;
                 opcion = -1;
             }
-            else if (opcion < 1 || opcion > 4) {
-                cout << "\nError. Debe seleccionar una opcion entre 1 y 4!" << endl;
+            else if (opcion < 1 || opcion > 6) {
+                cout << "\nError. Debe seleccionar una opcion entre 1 y 4!" <<endl;
             }
 
-        } while (opcion < 1 || opcion > 4);
+        } while (opcion < 1 || opcion > 6);
 
         switch (opcion) {
 
         case 1:
             reporteCanchaMasReservas();
             break;
-
+        
         case 2:
+            reporteClienteMasReservas();
+            break;
+
+
+        case 3:
             reporteIngresoTotal();
             break;
 
-        case 3:
+        case 4:
             reporteHorasMayorMenor();
             break;
 
-        case 4:
+        case 5:
+            reporteOcupacionPorcentaje();
+            break;
+
+        case 6:
             system("cls");
             cout << "\nRegresando al menu principal..." << endl;
             break;
 
         default:
-            cout << "\nOpcion invalida." << endl;
+            cout << "\nOpcion invalida." <<endl;
         }
 
-    } while (opcion != 4);
+    } while (opcion != 6);
+}
+
+void MenuPrincipal::reporteClienteMasReservas() {
+    system("cls");
+
+    cout << "===== CLIENTE CON MAYOR CANTIDAD DE RESERVAS ACTIVAS ====="
+        << endl << endl;
+
+    if (coleccionClientes.getCantidad() == 0) {
+        cout << "No existen clientes registrados." << endl;
+        system("pause");
+        return;
+    }
+
+    Cliente* mejorCliente = nullptr;
+    int maxReservas = -1;
+
+    for (int i = 0; i < coleccionClientes.getCantidad(); i++) {
+
+        Cliente* c = coleccionClientes.getCliente(i);
+
+        int total =
+            coleccionReservas.contarReservasActivasPorCliente(
+                c->getIdCliente());
+
+        cout << "Cliente ["
+            << c->getIdCliente()
+            << "] "
+            << c->getNombreCliente()
+            << ": "
+            << total
+            << " reserva(s) activa(s)"
+            << endl;
+
+        if (total > maxReservas) {
+            maxReservas = total;
+            mejorCliente = c;
+        }
+    }
+
+    cout << endl;
+
+    if (mejorCliente != nullptr && maxReservas > 0) {
+
+        cout << "==> El cliente con MAYOR cantidad de reservas activas es:"
+            << endl;
+
+        cout << "[" << mejorCliente->getIdCliente() << "] "
+            << mejorCliente->getNombreCliente()
+            << " con "
+            << maxReservas
+            << " reserva(s)."
+            << endl;
+    }
+    else {
+        cout << "Ningun cliente tiene reservas activas todavia."
+            << endl;
+    }
+
+    system("pause");
+}
+
+void MenuPrincipal::reporteOcupacionPorcentaje() {
+
+    system("cls");
+
+    cout << "===== PORCENTAJE DE OCUPACION DE CADA CANCHA ====="
+        << endl << endl;
+
+    if (coleccionCanchas.getCantidad() == 0) {
+        cout << "No existen canchas registradas." << endl;
+        system("pause");
+        return;
+    }
+
+    for (int i = 0; i < coleccionCanchas.getCantidad(); i++) {
+
+        Cancha* cancha = coleccionCanchas.getCancha(i);
+
+        int ocupadas = 0;
+
+        for (int j = 0; j < 12; j++) {
+
+            if (cancha->consultarFranja(j) == 'O') {
+                ocupadas++;
+            }
+        }
+
+        float porcentaje = (ocupadas * 100.0f) / 12;
+
+        cout << "Cancha [C-";
+
+        if (cancha->getIdCancha() < 10) {
+            cout << "0";
+        }
+
+        cout << cancha->getIdCancha()
+            << "] ("
+            << cancha->getTipoDeporte()
+            << ") --> "
+            << porcentaje
+            << "% de ocupacion"
+            << endl;
+    }
+
+    system("pause");
 }
 
 void MenuPrincipal::reporteCanchaMasReservas() {
     system("cls");
-    cout << "===== CANCHA CON MAYOR CANTIDAD DE RESERVAS ACTIVAS =====" << endl << endl;
+    cout << "===== CANCHA CON MAYOR CANTIDAD DE RESERVAS ACTIVAS =====" <<endl <<endl;
 
     if (coleccionCanchas.getCantidad() == 0) {
-        cout << "No existen canchas registradas." << endl;
+        cout << "No existen canchas registradas." <<endl;
         system("pause");
         return;
     }
@@ -1530,19 +1732,39 @@ void MenuPrincipal::reporteCanchaMasReservas() {
         Cancha* c = coleccionCanchas.getCancha(i);
         int total = coleccionReservas.contarReservasActivasPorCancha(c->getIdCancha());
 
-        cout << "Cancha [" << c->getIdCancha() << "] (" << c->getTipoDeporte() << "): "
-            << total << " reserva(s) activa(s)" << endl;
+        cout << "Cancha [C-";
+
+        if (c->getIdCancha() < 10) {
+            cout << "0";
+        }
+
+        cout << c->getIdCancha()
+            << "] ("
+            << c->getTipoDeporte()
+            << "): "
+            << total
+            << " reserva(s) activa(s)"
+            << endl;
 
         if (total > maxReservas) {
             maxReservas = total;
             mejorCancha = c;
         }
     }
+   
+    cout <<endl;
 
-    cout << endl;
     if (mejorCancha != nullptr && maxReservas > 0) {
-        cout << "==> La cancha con MAYOR cantidad de reservas activas es la ["
-            << mejorCancha->getIdCancha() << "] con " << maxReservas << " reserva(s)." << endl;
+        cout << "==> La cancha con MAYOR cantidad de reservas activas es la [C-";
+
+        if (mejorCancha->getIdCancha() < 10) {
+            cout << "0";
+        }
+
+        cout << mejorCancha->getIdCancha()
+            << "] con "
+            << maxReservas
+            << " reserva(s)." << endl;
     }
     else {
         cout << "Ninguna cancha tiene reservas activas todavia." << endl;
@@ -1553,7 +1775,7 @@ void MenuPrincipal::reporteCanchaMasReservas() {
 
 void MenuPrincipal::reporteIngresoTotal() {
     system("cls");
-    cout << "===== INGRESO TOTAL GENERADO POR RESERVAS ACTIVAS =====" << endl << endl;
+    cout << "===== INGRESO TOTAL GENERADO POR RESERVAS ACTIVAS =====" <<endl <<endl;
 
     float total = 0.0f;
     int cantidadActivas = 0;
@@ -1562,22 +1784,22 @@ void MenuPrincipal::reporteIngresoTotal() {
         Reserva* r = coleccionReservas.getReserva(i);
         if (r->getEstado() == 'A') {
             cout << "Reserva [" << r->getNumeroReserva() << "] - Cliente: "
-                << r->getCliente()->getNombreCliente() << " - Monto: CRC " << r->getMonto() << endl;
+                 << r->getCliente()->getNombreCliente() << " - Monto: CRC " << r->getMonto() <<endl;
             total += r->getMonto();
             cantidadActivas++;
         }
     }
 
-    cout << endl;
-    cout << "Cantidad de reservas activas consideradas: " << cantidadActivas << endl;
-    cout << "==> Ingreso total generado: CRC " << total << endl;
+    cout <<endl;
+    cout << "Cantidad de reservas activas consideradas: " << cantidadActivas <<endl;
+    cout << "==> Ingreso total generado: CRC " << total <<endl;
 
     system("pause");
 }
 
 void MenuPrincipal::reporteHorasMayorMenor() {
     system("cls");
-    cout << "===== HORAS CON MAYOR Y MENOR CANTIDAD DE RESERVAS =====" << endl << endl;
+    cout << "===== HORAS CON MAYOR Y MENOR CANTIDAD DE RESERVAS =====" <<endl <<endl;
 
     int contadorPorFranja[12];
     for (int i = 0; i < 12; i++) {
@@ -1600,19 +1822,19 @@ void MenuPrincipal::reporteHorasMayorMenor() {
         int horaInicio = 8 + i;
         int horaFin = 9 + i;
         cout << "[" << horaInicio << ":00 - " << horaFin << ":00] --> "
-            << contadorPorFranja[i] << " reserva(s)" << endl;
+            << contadorPorFranja[i] << " reserva(s)" <<endl;
 
         if (contadorPorFranja[i] > contadorPorFranja[franjaMax]) franjaMax = i;
         if (contadorPorFranja[i] < contadorPorFranja[franjaMin]) franjaMin = i;
     }
 
-    cout << endl;
+    cout <<endl;
     cout << "==> Hora con MAYOR cantidad de reservas: ["
         << (8 + franjaMax) << ":00 - " << (9 + franjaMax) << ":00] con "
-        << contadorPorFranja[franjaMax] << " reserva(s)." << endl;
+        << contadorPorFranja[franjaMax] << " reserva(s)." <<endl;
     cout << "==> Hora con MENOR cantidad de reservas: ["
         << (8 + franjaMin) << ":00 - " << (9 + franjaMin) << ":00] con "
-        << contadorPorFranja[franjaMin] << " reserva(s)." << endl;
+        << contadorPorFranja[franjaMin] << " reserva(s)." <<endl;
 
     system("pause");
 }

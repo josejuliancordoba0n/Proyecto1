@@ -36,12 +36,27 @@ string Reserva::toStringReserva() {
     ss << "=====================\n";
     ss << "DATOS DE LA RESERVA\n";
     ss << "=====================\n";
-    ss << "Numero de reserva: [" << numeroReserva << "]" << endl;
-    ss << "Cliente: [" << clienteNombre << "]" << endl;
-    ss << "Cancha: [" << canchaId << "]" << endl;
-    ss << "Horario reservado: [" << horaInicio << ":00 - " << horaFin << ":00]" << endl;
-    ss << "Monto: [CRC " << monto << "]" << endl;
-    ss << "Estado: [" << estadoTexto << "]" << endl;
+    ss << "Numero de reserva: [" << numeroReserva << "]" <<endl;
+    ss << "Cliente: [" << clienteNombre << "]" <<endl;
+    ss << "Cancha: [C-";
+
+    if (canchaId != -1) {
+
+        if (canchaId < 10) {
+            ss << "0";
+        }
+
+        ss << canchaId;
+    }
+    else {
+        ss << "??";
+    }
+
+    ss << "]" << endl;
+
+    ss << "Horario reservado: [" << horaInicio << ":00 - " << horaFin << ":00]" <<endl;
+    ss << "Monto: [CRC " << monto << "]" <<endl;
+    ss << "Estado: [" << estadoTexto << "]" <<endl;
 
     return ss.str();
 }

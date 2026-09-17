@@ -42,9 +42,9 @@ int ListaCliente::getCantidad() {
 
 string ListaCliente::toStringListaClientes() {
     stringstream ss;
-    ss << "============= LISTADO DE CLIENTES =============" << endl;
+    ss << "============= LISTADO DE CLIENTES =============" <<endl;
     for (int i = 0; i < cant; i++) {
-        ss << arrayCliente[i]->toStringCliente() << endl;
+        ss << arrayCliente[i]->toStringCliente() <<endl;
     }
     return ss.str();
 }

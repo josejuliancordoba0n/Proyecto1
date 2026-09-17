@@ -18,9 +18,9 @@ string Cliente::toStringCliente() {
     ss << "=====================\n";
     ss << "DATOS DEL CLIENTE\n";
     ss << "=====================\n";
-    ss << "ID del cliente: " << idCliente << endl
-        << "Nombre del cliente: " << nombreCliente << endl
-        << "Numero de telefono: " << numTel << endl;
+    ss << "ID del cliente: " << idCliente <<endl
+        << "Nombre del cliente: " << nombreCliente <<endl
+        << "Numero de telefono: " << numTel <<endl;
     return ss.str();
 }
 
