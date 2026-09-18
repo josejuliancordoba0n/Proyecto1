@@ -5,11 +5,6 @@ using namespace std;
 
 
 int main() {
-
-	cout << "ESTE ES EL MAIN DEL PROYECTO #1..." <<endl;
-	cout << "PUEDEN ACCEDER A ESTE ARCHIVO CON NORMALIDAD?" <<endl;
-	cout << "TODO EN ORDEN GENTE, SE PUEDE ACCEDER EASY -KEN-" <<endl;
-
 		MenuPrincipal menu;
 
 		menu.iniciar();
