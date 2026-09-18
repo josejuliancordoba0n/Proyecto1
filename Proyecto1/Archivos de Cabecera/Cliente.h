@@ -23,4 +23,6 @@ public:
 
     ~Cliente();
 };
+
+
 #endif //PROYECTO1_CLIENTE_H

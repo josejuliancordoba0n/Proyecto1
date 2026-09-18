@@ -20,9 +20,6 @@ public:
     RegistroEspera();
     RegistroEspera(int idSolicitudEspera, char estadoAtencion, Cliente* cliente, Cancha* cancha, int posicionFranja);
 
-    //Metodo propio
-    string toStringRegistroEspera(int idSolicitudEspera);
-
     //Get (necesarios para ListaRegistroEspera: buscar por cancha/franja, mostrar, cambiar estado)
     int getIdSolicitudEspera();
     char getEstadoAtencion();
@@ -33,6 +30,10 @@ public:
     //Set (necesario para cambiar estado: esperando -> asignado / cancelado)
     void setEstadoAtencion(char nuevoEstado);
     void setIdSolicitudEspera(int id);
+
+    //To String
+    string toStringRegistroEspera(int idSolicitudEspera);
+
     //Destructor
     ~RegistroEspera();
 };

@@ -21,13 +21,11 @@ class Reserva {
 
     public:
     
+    //Constructores
     Reserva();
     Reserva(int numeroReserva, Cliente* cliente, Cancha* cancha, int franjaInicial, int cantidadFranjas, float monto);
 
-   
-    string toStringReserva();
-
-   
+    //Get
     int getNumeroReserva();
     Cliente* getCliente();
     Cancha* getCancha();
@@ -35,10 +33,12 @@ class Reserva {
     int getCantidadFranjas();
     float getMonto();
     char getEstado();
-
     
+    //Set
     void setEstado(char nuevoEstado);
 
+    //To String
+    string toStringReserva();
     
     ~Reserva();
 };
